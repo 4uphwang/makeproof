@@ -3,6 +3,7 @@ import { useState } from 'react';
 import './App.css';
 import download from "downloadjs";
 const snarkjs = require("snarkjs");
+import { Buffer } from "buffer";
 
 function App() {
   const [proof,setProof] = useState(null);

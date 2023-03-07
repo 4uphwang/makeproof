@@ -24,14 +24,14 @@ function MakeProof() {
   }
 
   const ButtonClick = async () => {
-  //   let DOMAIN = "http://3.39.237.110:3000/";
-  // let wasmFile = await getFileBuffer(`${DOMAIN}/wasmFile.wasm`);
-  // let zkeyFile = await getFileBuffer(`${DOMAIN}/zkey.zkey`);
+    let DOMAIN = "http://3.39.237.110:3000/";
+  let wasmFile = await getFileBuffer(`${DOMAIN}/wasmFile.wasm`);
+  let zkeyFile = await getFileBuffer(`${DOMAIN}/zkey.zkey`);
     // let wasmFile = await getFileBuffer(`http://13.125.226.19/wasmFile`);
     // let zkeyFile = await getFileBuffer(`http://13.125.226.19/zkeyFile`);
-    let path = ("http://localhost:3001");
-    let wasmFile = await getFileBuffer(`${path}/wasmFile.wasm`);
-    let zkeyFile = await getFileBuffer(`${path}/zkey.zkey`);
+    // let path = ("http://localhost:3001");
+    // let wasmFile = await getFileBuffer(`${path}/wasmFile.wasm`);
+    // let zkeyFile = await getFileBuffer(`${path}/zkey.zkey`);
     console.log(wasmFile);
     console.log(zkeyFile);
     let proofInput = {

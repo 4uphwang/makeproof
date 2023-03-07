@@ -4,6 +4,7 @@ import './App.css';
 import download from "downloadjs";
 // import { Buffer } from "buffer";
 const snarkjs = require("snarkjs");
+window.Buffer = require('buffer/').Buffer;
 
 function App() {
   const [proof,setProof] = useState(null);

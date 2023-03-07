@@ -21,7 +21,7 @@ function App() {
     let req = await fetch(filename);
     return Buffer.from(await req.arrayBuffer());
   }
-
+  
   const ButtonClick = async () => {
     let path = ("http://3.39.237.110:3000");
     let wasmFile = await getFileBuffer(`${path}/wasmFile.wasm`);

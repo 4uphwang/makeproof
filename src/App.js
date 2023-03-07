@@ -21,7 +21,7 @@ function App() {
   }
 
   const ButtonClick = async () => {
-    let path = ("https://www.yourd.xyz");
+    let path = ("http://3.39.237.110:3000");
     let wasmFile = await getFileBuffer(`${path}/wasmFile.wasm`);
     let zkeyFile = await getFileBuffer(`${path}/zkey.zkey`);
     // const verificationKey ="https://gateway.pinata.cloud/ipfs/QmR34ZwdQMj7pZvdVeJz2Lru9zgTkQrX6YDjsQCpcm7xJP";

@@ -24,7 +24,7 @@ function MakeProof() {
   }
 
   const ButtonClick = async () => {
-    let DOMAIN = "http://localhost:3001";
+    let DOMAIN = "http://3.39.237.110:3000/";
   let wasmFile = await getFileBuffer(`${DOMAIN}/wasmFile.wasm`);
   let zkeyFile = await getFileBuffer(`${DOMAIN}/zkey.zkey`);
     // let wasmFile = await getFileBuffer(`http://13.125.226.19/wasmFile`);

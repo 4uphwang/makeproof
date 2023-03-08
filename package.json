@@ -16,9 +16,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "node index.js",
+    "start": "node server.js",
     "heroku-postbuild": "cd client && npm install && npm run build",
-    "test": "nodemon index.js"
+    "test": "nodemon server.js"
   },
   "eslintConfig": {
     "extends": [

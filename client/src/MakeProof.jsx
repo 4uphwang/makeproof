@@ -1,11 +1,6 @@
 import { useState } from 'react';
 import download from "downloadjs";
-// import axios from 'axios';
-// import '@babel/polyfill';
-// import {wasmFile} from '../assets/wasmFile.wasm';
-// const zkeyFile = require('../assets/zkey.zkey');
 const snarkjs = require("snarkjs");
-// import { axiosInstance } from "./config";
 
 function MakeProof() {
   const [proof,setProof] = useState(null);
@@ -27,8 +22,6 @@ function MakeProof() {
     let DOMAIN = "https://yourd-makeproof.herokuapp.com/";
   let wasmFile = await getFileBuffer(`${DOMAIN}/wasmFile.wasm`);
   let zkeyFile = await getFileBuffer(`${DOMAIN}/zkey.zkey`);
-    // let wasmFile = await getFileBuffer(`http://13.125.226.19/wasmFile`);
-    // let zkeyFile = await getFileBuffer(`http://13.125.226.19/zkeyFile`);
     // let path = ("https://www.yourd.xyz");
     // let wasmFile = await getFileBuffer(`${path}/wasmFile.wasm`);
     // let zkeyFile = await getFileBuffer(`${path}/zkey.zkey`);
@@ -53,9 +46,7 @@ function MakeProof() {
 
      makeProof(proofInput, wasmFile, zkeyFile).then(
       ({ proof: _proof, publicSignals: _signals }) => {
-        // console.log(_proof);
         const file = JSON.stringify(_proof, null, 2);
-        // console.log(file);
         setProof(file);
         down(file);
       }

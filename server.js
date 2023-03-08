@@ -18,6 +18,7 @@ res.set({
     Pragma: "no-cache",
     Date: Date.now()
 });
+
 res.sendFile(path.join(__dirname+"/build/index.html"));
 });
 

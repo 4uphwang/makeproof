@@ -5,7 +5,7 @@ import download from "downloadjs";
 // import {wasmFile} from '../assets/wasmFile.wasm';
 // const zkeyFile = require('../assets/zkey.zkey');
 const snarkjs = require("snarkjs");
-import { axiosInstance } from "../../config";
+// import { axiosInstance } from "./config";
 
 function MakeProof() {
   const [proof,setProof] = useState(null);

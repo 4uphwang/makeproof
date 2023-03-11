@@ -1,30 +1,30 @@
 import { useState } from 'react';
-import download from "downloadjs";
+import axios from "axios";
+// import download from "downloadjs";
 const snarkjs = require("snarkjs");
 
 function MakeProof() {
   const [proof,setProof] = useState(null);
+  const [inputValue, setInputValue] = useState('Current Location');
   const makeProof = async (_proofInput, _wasm, _zkey) => {
     const { proof, publicSignals } = await snarkjs.groth16.fullProve(
       _proofInput,
       _wasm,
-      _zkey
+      _zkey 
     );
     return { proof, publicSignals };
   };
-
+  
   async function getFileBuffer(filename) {
     let req = await fetch(filename);
     return Buffer.from(await req.arrayBuffer());
   }
 
   const ButtonClick = async () => {
-    let DOMAIN = "https://yourd-makeproof.herokuapp.com/";
+    // let DOMAIN = "https://yourd-makeproof.herokuapp.com";
+    let DOMAIN = "http://localhost:3001/";
   let wasmFile = await getFileBuffer(`${DOMAIN}/wasmFile.wasm`);
   let zkeyFile = await getFileBuffer(`${DOMAIN}/zkey.zkey`);
-    // let path = ("https://www.yourd.xyz");
-    // let wasmFile = await getFileBuffer(`${path}/wasmFile.wasm`);
-    // let zkeyFile = await getFileBuffer(`${path}/zkey.zkey`);
     console.log(wasmFile);
     console.log(zkeyFile);
     let proofInput = {
@@ -48,21 +48,25 @@ function MakeProof() {
       ({ proof: _proof, publicSignals: _signals }) => {
         const file = JSON.stringify(_proof, null, 2);
         setProof(file);
-        down(file);
+        // axios.post("https://yourdserver.store/proofResult", file);
+        axios.post("http://localhost:8000/proofResult",file);
+        // down(file);
       }
     );
-    
-    const down = (proof) => {
-      const fileName ='proof.json';
-      download(proof, fileName);
-    }
-
+    // const down = (proof) => {
+    //   const fileName ='proof.json';
+    //   download(proof, fileName);
+    // }
   };
+  const handleInputChange = (e) => {
+    // setInputValue(e.target.value)
+  }
 
   return (
     <div style={{display: "flex", justifyContent:"center", alignItems:"center", height: "100vh" , width:"100vw"}}>
+      <input id="CurrentLocationInput" type="text" value={inputValue} onChange={handleInputChange} />
       <button
-          title="Verify Button"
+          id="Verify_Button"
           // className="text-xl text-center p-3"
           style={{ width: "100px", height: "50px" ,display: "flex", position:"relative" }}
           onClick={() => {
@@ -72,7 +76,8 @@ function MakeProof() {
         >
           makeProof
         </button>
-        {proof == null ? <div style={{ display: "flex", marginTop:"100px"}}>none</div> : <div style={{fontSize: "12pt"}}>{proof}</div>}
+        {proof == null ? <div style={{ display: "flex", marginTop:"100px"}}>none</div> : <div style={{fontSize: "12pt"}}>success!</div>}
+        {/* <input></input> */}
     </div>
   );
 }

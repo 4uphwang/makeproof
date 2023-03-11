@@ -2,7 +2,7 @@ const http = require("http");
 const express = require("express");
 const path = require("path");
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 4000;
 
 app.get("/ping", (req, res) => {
     res.send("pong");

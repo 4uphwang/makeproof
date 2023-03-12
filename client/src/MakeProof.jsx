@@ -22,8 +22,8 @@ function MakeProof() {
   }
 
   const ButtonClick = async () => {
-    // let DOMAIN = "https://yourd-makeproof.herokuapp.com";
-    let DOMAIN = "http://localhost:3001/";
+    let DOMAIN = "https://yourd-makeproof.herokuapp.com";
+    // let DOMAIN = "http://localhost:3001/";
   let wasmFile = await getFileBuffer(`${DOMAIN}/wasmFile.wasm`);
   let zkeyFile = await getFileBuffer(`${DOMAIN}/zkey.zkey`);
     console.log(wasmFile);
@@ -49,8 +49,8 @@ function MakeProof() {
       ({ proof: _proof, publicSignals: _signals }) => {
         const file = JSON.stringify(_proof, null, 2);
         setProof(file);
-        // axios.post("https://yourdserver.store/proofResult", file);
-        axios.post("http://localhost:8000/proofResult",file);
+        axios.post("https://yourdserver.store/proofResult", file);
+        // axios.post("http://localhost:8000/proofResult",file);
         // down(file);
       }
     );
@@ -79,6 +79,16 @@ function MakeProof() {
         type="text"
         value={inputValue}
         onChange={handleInputChange}
+        style={{
+          width: "80%",
+          height: "32px",
+          fontSize: "15px",
+          border: "0",
+          borderRadius: "15px",
+          outline: "none",
+          paddingLeft: "10px",
+          backgroundColor: "rgb(233, 233, 233)",
+        }}
       />
       <button
         id="Verify_Button"

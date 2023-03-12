@@ -97,7 +97,7 @@ function MakeProof() {
       {proof == null ? (
         <div style={{ display: "flex" }}>none</div>
       ) : (
-        <div style={{ fontSize: "6pt" }}>success!</div>
+        <div style={{ fontSize: "6pt" }}>{proof}</div>
       )}
       {/* <input></input> */}
     </div>

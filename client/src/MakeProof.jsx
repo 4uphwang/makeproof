@@ -6,7 +6,6 @@ const snarkjs = require("snarkjs");
 
 function MakeProof() {
   const [proof,setProof] = useState(null);
-  const [inputValue, setInputValue] = useState('Current Location');
   const makeProof = async (_proofInput, _wasm, _zkey) => {
     const { proof, publicSignals } = await snarkjs.groth16.fullProve(
       _proofInput,
@@ -59,10 +58,6 @@ function MakeProof() {
     //   download(proof, fileName);
     // }
   };
-  const handleInputChange = (e) => {
-    // setInputValue(e.target.value)
-  }
-
   return (
     <div
       style={{
@@ -77,8 +72,7 @@ function MakeProof() {
       <input
         id="CurrentLocationInput"
         type="text"
-        value={inputValue}
-        onChange={handleInputChange}
+        value={""}
         style={{
           width: "80%",
           height: "32px",
@@ -92,17 +86,7 @@ function MakeProof() {
       />
       <button
         id="Verify_Button"
-        // className="text-xl text-center p-3"
         className="w-btn-outline w-btn-gray-outline"
-        // style={{
-        //   width: "100px",
-        //   height: "50px",
-        //   display: "flex",
-        //   justifyContent: "center",
-        //   alignItems: "center",
-        //   borderRadius: "20px",
-        //   margin:"20px 0"
-        // }}
         onClick={() => {
           console.log("click");
           ButtonClick();

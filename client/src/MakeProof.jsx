@@ -3,6 +3,7 @@ import axios from "axios";
 // import download from "downloadjs";
 const snarkjs = require("snarkjs");
 
+
 function MakeProof() {
   const [proof,setProof] = useState(null);
   const [inputValue, setInputValue] = useState('Current Location');
@@ -63,21 +64,48 @@ function MakeProof() {
   }
 
   return (
-    <div style={{display: "flex", justifyContent:"center", alignItems:"center", height: "100vh" , width:"100vw"}}>
-      <input id="CurrentLocationInput" type="text" value={inputValue} onChange={handleInputChange} />
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100%",
+        width: "100%",
+        flexDirection: "column",
+      }}
+    >
+      <input
+        id="CurrentLocationInput"
+        type="text"
+        value={inputValue}
+        onChange={handleInputChange}
+      />
       <button
-          id="Verify_Button"
-          // className="text-xl text-center p-3"
-          style={{ width: "100px", height: "50px" ,display: "flex", position:"relative" }}
-          onClick={() => {
-            console.log("click");
-            ButtonClick();
-          }}
-        >
-          makeProof
-        </button>
-        {proof == null ? <div style={{ display: "flex", marginTop:"100px"}}>none</div> : <div style={{fontSize: "12pt"}}>success!</div>}
-        {/* <input></input> */}
+        id="Verify_Button"
+        // className="text-xl text-center p-3"
+        className="w-btn-outline w-btn-gray-outline"
+        // style={{
+        //   width: "100px",
+        //   height: "50px",
+        //   display: "flex",
+        //   justifyContent: "center",
+        //   alignItems: "center",
+        //   borderRadius: "20px",
+        //   margin:"20px 0"
+        // }}
+        onClick={() => {
+          console.log("click");
+          ButtonClick();
+        }}
+      >
+        <div>makeProof</div>
+      </button>
+      {proof == null ? (
+        <div style={{ display: "flex" }}>none</div>
+      ) : (
+        <div style={{ fontSize: "6pt" }}>success!</div>
+      )}
+      {/* <input></input> */}
     </div>
   );
 }

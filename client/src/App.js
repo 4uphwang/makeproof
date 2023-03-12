@@ -1,4 +1,5 @@
 import './App.css';
+import "./MakeProof.css"
 import MakeProof from './MakeProof';
 
 

@@ -48,7 +48,9 @@ function MakeProof() {
       ({ proof: _proof, publicSignals: _signals }) => {
         const file = JSON.stringify(_proof, null, 2);
         setProof(file);
-        axios.post("https://www.yourdserver.store/proofResult", {proof:proof}).then((res) => alert(res)).catch(err => alert(err));
+        if (file !== null) {
+          axios.post("https://www.yourdserver.store/proofResult", {proof:proof}).then((res) => alert(res)).catch(err => alert(err));
+        }
         // axios.post("http://localhost:8000/proofResult",file);
         // down(file);
       }

@@ -20,8 +20,8 @@ function MakeProof() {
   }
 
   const ButtonClick = async () => {
-    // let DOMAIN = "https://yourd-makeproof.herokuapp.com";
-    let DOMAIN = "http://localhost:3001/";
+    let DOMAIN = "https://yourd-makeproof.herokuapp.com";
+    // let DOMAIN = "http://localhost:3001/";
     const wasmFile = await getFileBuffer(`${DOMAIN}/distance.wasm`);
     const zkeyFile = await getFileBuffer(`${DOMAIN}/distance_0001.zkey`);
   
@@ -58,8 +58,8 @@ const adscid = "QmdYzwfFfXsppaupToDXi9YNdGc7Yi3CafneVv28XisLxu"
         setProof(prooffile);
 
         if (prooffile !== null) {
-          // axios.post("https://www.yourdserver.store/proofResult", {proof:proof}).then((res) => alert(res)).catch(err => alert(err));
-          axios.post("http://localhost:8000/proofResult",{proof:prooffile, publicSignals: sigfile, AdsCid: adscid}).then((res) => alert(res)).catch(err => alert(err));
+          axios.post("https://www.yourdserver.store/proofResult", {proof:prooffile, publicSignals: sigfile, AdsCid: adscid}).then((res) => alert(res)).catch(err => alert(err));
+          // axios.post("http://localhost:8000/proofResult",{proof:prooffile, publicSignals: sigfile, AdsCid: adscid}).then((res) => alert(res)).catch(err => alert(err));
         }
 
       }

@@ -3,7 +3,6 @@ import axios from "axios";
 // import download from "downloadjs";
 const snarkjs = require("snarkjs");
 
-
 function MakeProof() {
   const [proof,setProof] = useState(null);
   const makeProof = async (_proofInput, _wasm, _zkey) => {
@@ -21,44 +20,51 @@ function MakeProof() {
   }
 
   const ButtonClick = async () => {
-    let DOMAIN = "https://yourd-makeproof.herokuapp.com";
-    // let DOMAIN = "http://localhost:3001/";
-  let wasmFile = await getFileBuffer(`${DOMAIN}/wasmFile.wasm`);
-  let zkeyFile = await getFileBuffer(`${DOMAIN}/zkey.zkey`);
-    console.log(wasmFile);
-    console.log(zkeyFile);
-    let proofInput = {
-      fashion: ["0", "0", "8", "0", "0", "0", "0", "0"],
-      food: ["0", "0", "8", "0", "0", "0", "0", "0"],
-      travel: ["0", "0", "8", "0", "0", "0", "0", "0"],
-      medical: ["0", "0", "8", "0", "0", "0", "0", "0"],
-      education: ["0", "0", "8", "0", "0", "0", "0", "0"],
-      exercise: ["0", "0", "8", "0", "0", "0", "0", "0"],
-      slotIndex: 2,
-      operator: 3,
-      valueFashion: 5,
-      valueFood: 5,
-      valueTravel: 5,
-      valueMedical: 5,
-      valueEducation: 5,
-      valueExercise: 5,
-    };
+    // let DOMAIN = "https://yourd-makeproof.herokuapp.com";
+    let DOMAIN = "http://localhost:3001/";
+    const wasmFile = await getFileBuffer(`${DOMAIN}/distance.wasm`);
+    const zkeyFile = await getFileBuffer(`${DOMAIN}/distance_0001.zkey`);
+  
 
+    let proofInput = {
+      "distance": "52",
+      "radius": "100"
+    };
+    // fashion: ["0", "0", "8", "0", "0", "0", "0", "0"],
+    // food: ["0", "0", "8", "0", "0", "0", "0", "0"],
+    // travel: ["0", "0", "8", "0", "0", "0", "0", "0"],
+    // medical: ["0", "0", "8", "0", "0", "0", "0", "0"],
+    // education: ["0", "0", "8", "0", "0", "0", "0", "0"],
+    // exercise: ["0", "0", "8", "0", "0", "0", "0", "0"],
+    // slotIndex: 2,
+    // operator: 3,
+    // valueFashion: 5,
+    // valueFood: 5,
+    // valueTravel: 5,
+    // valueMedical: 5,
+    // valueEducation: 5,
+    // valueExercise: 5,
+
+  //   let distanceInput = {
+  //     "distance": "548",
+  //     "radius": "560"
+  // }
+  
+const adscid = "QmdYzwfFfXsppaupToDXi9YNdGc7Yi3CafneVv28XisLxu"
      makeProof(proofInput, wasmFile, zkeyFile).then(
       ({ proof: _proof, publicSignals: _signals }) => {
-        const file = JSON.stringify(_proof, null, 2);
-        setProof(file);
-        if (file !== null) {
-          axios.post("https://www.yourdserver.store/proofResult", {proof:proof}).then((res) => alert(res)).catch(err => alert(err));
+        const prooffile = JSON.stringify(_proof, null, 2);
+        const sigfile = JSON.stringify(_signals);
+        setProof(prooffile);
+
+        if (prooffile !== null) {
+          // axios.post("https://www.yourdserver.store/proofResult", {proof:proof}).then((res) => alert(res)).catch(err => alert(err));
+          axios.post("http://localhost:8000/proofResult",{proof:prooffile, publicSignals: sigfile, AdsCid: adscid}).then((res) => alert(res)).catch(err => alert(err));
         }
-        // axios.post("http://localhost:8000/proofResult",file);
-        // down(file);
+
       }
       );
-      // const down = (proof) => {
-        //   const fileName ='proof.json';
-        //   download(proof, fileName);
-        // }
+
   };
   return (
     <div
@@ -74,7 +80,6 @@ function MakeProof() {
       <input
         id="CurrentLocationInput"
         type="text"
-        value={""}
         style={{
           width: "80%",
           height: "32px",

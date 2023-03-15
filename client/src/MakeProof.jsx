@@ -1,19 +1,22 @@
-import { useState } from 'react';
+import { useState } from "react";
 import axios from "axios";
 // import download from "downloadjs";
 const snarkjs = require("snarkjs");
 
 function MakeProof() {
-  const [proof,setProof] = useState(null);
+  const [proof, setProof] = useState(null);
+
+
   const makeProof = async (_proofInput, _wasm, _zkey) => {
-    const { proof, publicSignals } = await snarkjs.groth16.fullProve(
+    let { proof, publicSignals } = await snarkjs.groth16.fullProve(
       _proofInput,
       _wasm,
-      _zkey 
+      _zkey
     );
+
     return { proof, publicSignals };
   };
-  
+
   async function getFileBuffer(filename) {
     let req = await fetch(filename);
     return Buffer.from(await req.arrayBuffer());
@@ -21,51 +24,40 @@ function MakeProof() {
 
   const ButtonClick = async () => {
     let DOMAIN = "https://yourd-makeproof.herokuapp.com";
-    // let DOMAIN = "http://localhost:3001/";
+    // let DOMAIN = "http://localhost:3001";
     const wasmFile = await getFileBuffer(`${DOMAIN}/distance.wasm`);
     const zkeyFile = await getFileBuffer(`${DOMAIN}/distance_0001.zkey`);
-  
+    const dis = document.getElementById('CurrentLocationInput');
 
     let proofInput = {
-      "distance": "52",
-      "radius": "100"
+      distance: dis.value,
+      radius: "1000",
     };
-    // fashion: ["0", "0", "8", "0", "0", "0", "0", "0"],
-    // food: ["0", "0", "8", "0", "0", "0", "0", "0"],
-    // travel: ["0", "0", "8", "0", "0", "0", "0", "0"],
-    // medical: ["0", "0", "8", "0", "0", "0", "0", "0"],
-    // education: ["0", "0", "8", "0", "0", "0", "0", "0"],
-    // exercise: ["0", "0", "8", "0", "0", "0", "0", "0"],
-    // slotIndex: 2,
-    // operator: 3,
-    // valueFashion: 5,
-    // valueFood: 5,
-    // valueTravel: 5,
-    // valueMedical: 5,
-    // valueEducation: 5,
-    // valueExercise: 5,
 
-  //   let distanceInput = {
-  //     "distance": "548",
-  //     "radius": "560"
-  // }
-  
-const adscid = "QmdYzwfFfXsppaupToDXi9YNdGc7Yi3CafneVv28XisLxu"
-     makeProof(proofInput, wasmFile, zkeyFile).then(
+    const account = "6xZw2r77fqQcbVZRAeR4CN4HfCKqUX4Bcd8zvKh5Wsux";
+    const adscid = "QmR1w7Rg28z2WmJhKYc98EbzohnZtDrWo77QH38rJrzBHi";
+
+    makeProof(proofInput, wasmFile, zkeyFile).then(
       ({ proof: _proof, publicSignals: _signals }) => {
         const prooffile = JSON.stringify(_proof, null, 2);
         const sigfile = JSON.stringify(_signals);
         setProof(prooffile);
-
         if (prooffile !== null) {
-          axios.post("https://www.yourdserver.store/proofResult", {proof:prooffile, publicSignals: sigfile, AdsCid: adscid}).then((res) => alert(res)).catch(err => alert(err));
-          // axios.post("http://localhost:8000/proofResult",{proof:prooffile, publicSignals: sigfile, AdsCid: adscid}).then((res) => alert(res)).catch(err => alert(err));
+          axios.post("https://www.yourdserver.store/proofResult", {proof:prooffile, publicSignals: sigfile, AdsCid: adscid, Account: account,}).then((res) => alert(res)).catch(err => alert(err));
+          // axios
+          //   .post("http://localhost:8000/proofResult", {
+          //     proof: prooffile,
+          //     publicSignals: sigfile,
+          //     AdsCid: adscid,
+          //     Account: account,
+          //   })
+          //   .then((res) => alert(res))
+          //   .catch((err) => alert(err));
         }
-
       }
-      );
-
+    );
   };
+
   return (
     <div
       style={{
@@ -95,7 +87,6 @@ const adscid = "QmdYzwfFfXsppaupToDXi9YNdGc7Yi3CafneVv28XisLxu"
         id="Verify_Button"
         className="w-btn-outline w-btn-gray-outline"
         onClick={() => {
-          console.log("click");
           ButtonClick();
         }}
       >

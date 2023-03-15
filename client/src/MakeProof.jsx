@@ -31,7 +31,7 @@ function MakeProof() {
 
     let proofInput = {
       distance: dis.value,
-      radius: "20",
+      radius: "50",
     };
 
     const account = "6xZw2r77fqQcbVZRAeR4CN4HfCKqUX4Bcd8zvKh5Wsux";

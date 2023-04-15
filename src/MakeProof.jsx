@@ -1,11 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
-// import download from "downloadjs";
 const snarkjs = require("snarkjs");
-const DOMAIN = "http://localhost:3001";
-const Server = "http://localhost:8000";
-// const DOMAIN = "https://yourd-makeproof.herokuapp.com";
-// const Server = "https://www.yourdserver.store";
+// const DOMAIN = "http://localhost:3001";
+// const Server = "http://localhost:8000";
+const DOMAIN = "https://yourd-makeproof.herokuapp.com";
+const Server = "https://www.yourdserver.store";
 
 function MakeProof() {
   const [proof, setProof] = useState(null);
